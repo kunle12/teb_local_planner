@@ -19,7 +19,7 @@ IF(UNIX)
   MESSAGE(STATUS "Searching for g2o ...")
   FIND_PATH(G2O_INCLUDE_DIR
     NAMES core math_groups types
-    PATHS /usr/local /usr
+    PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES include/g2o include)
 
   IF (G2O_INCLUDE_DIR)
@@ -27,39 +27,35 @@ IF(UNIX)
   ENDIF (G2O_INCLUDE_DIR)
 
   FIND_LIBRARY(G2O_CORE_LIB             
-    NAMES g2o_core g2o_core_rd
+    NAMES g2o_core
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_STUFF_LIB            
-    NAMES g2o_stuff g2o_stuff_rd
+    NAMES g2o_stuff
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_TYPES_SLAM2D_LIB     
-    NAMES g2o_types_slam2d g2o_types_slam2d_rd
+    NAMES g2o_types_slam2d
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_TYPES_SLAM3D_LIB     
-    NAMES g2o_types_slam3d g2o_types_slam3d_rd
+    NAMES g2o_types_slam3d
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_SOLVER_CHOLMOD_LIB   
-    NAMES g2o_solver_cholmod g2o_solver_cholmod_rd
+    NAMES g2o_solver_cholmod
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_SOLVER_PCG_LIB       
-    NAMES g2o_solver_pcg g2o_solver_pcg_rd
+    NAMES g2o_solver_pcg
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_SOLVER_CSPARSE_LIB   
-    NAMES g2o_solver_csparse g2o_solver_csparse_rd
+    NAMES g2o_solver_csparse
     PATHS /usr/local /usr 
     PATH_SUFFIXES lib)
-  FIND_LIBRARY(G2O_INCREMENTAL_LIB      
-    NAMES g2o_incremental g2o_incremental_rd
-    PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
-    PATH_SUFFIXES lib)
   FIND_LIBRARY(G2O_CSPARSE_EXTENSION_LIB
-    NAMES g2o_csparse_extension g2o_csparse_extension_rd
+    NAMES g2o_csparse_extension
     PATHS /usr/local /usr ${CMAKE_PREFIX_PATH}
     PATH_SUFFIXES lib)
 
@@ -71,7 +67,6 @@ IF(UNIX)
                     ${G2O_SOLVER_CHOLMOD_LIB} 
                     ${G2O_SOLVER_PCG_LIB}     
                     ${G2O_SOLVER_CSPARSE_LIB} 
-                    ${G2O_INCREMENTAL_LIB}                        
                     )
 
   IF(G2O_LIBRARIES AND G2O_INCLUDE_DIR)

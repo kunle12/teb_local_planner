@@ -52,6 +52,7 @@ else( WIN32 )
         	      PATHS /usr/local/include 
         	            /usr/include 
         	            /usr/include/suitesparse/ 
+		            ${CMAKE_PREFIX_PATH}/include
         	            ${CMAKE_SOURCE_DIR}/MacOS/Libs/cholmod
               	      PATH_SUFFIXES cholmod/ CHOLMOD/ )
    	
@@ -65,6 +66,7 @@ else( WIN32 )
                             /usr/lib/arm-linux-gnueabihf/
                             /usr/lib/aarch64-linux-gnu/
                             /usr/lib/arm-linux-gnueabi/
+		            ${CMAKE_PREFIX_PATH}/lib/
                             /usr/lib/arm-linux-gnu)
    ENDIF(APPLE)
 
@@ -76,17 +78,15 @@ else( WIN32 )
    # if we found the library, add it to the defined libraries
    IF ( SUITESPARSE_LIBRARY_DIR )
 
-       list ( APPEND SUITESPARSE_LIBRARIES amd)
-       list ( APPEND SUITESPARSE_LIBRARIES btf)
-       list ( APPEND SUITESPARSE_LIBRARIES camd)
-       list ( APPEND SUITESPARSE_LIBRARIES ccolamd)
-       list ( APPEND SUITESPARSE_LIBRARIES cholmod)
-       list ( APPEND SUITESPARSE_LIBRARIES colamd)
- #     list ( APPEND SUITESPARSE_LIBRARIES csparse)
-       list ( APPEND SUITESPARSE_LIBRARIES cxsparse)
-       list ( APPEND SUITESPARSE_LIBRARIES klu)
- #     list ( APPEND SUITESPARSE_LIBRARIES spqr)
-       list ( APPEND SUITESPARSE_LIBRARIES umfpack)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libamd.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libbtf.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libcamd.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libccolamd.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libcholmod.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libcolamd.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libcxsparse.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libklu.so)
+       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libumfpack.so)
 
        IF (APPLE)
            list ( APPEND SUITESPARSE_LIBRARIES suitesparseconfig)
@@ -111,7 +111,7 @@ else( WIN32 )
 		      NAMES spqr
 		      PATHS ${SUITESPARSE_LIBRARY_DIR} )
 	  IF (SUITESPARSE_SPQR_LIBRARY)			
-	    list ( APPEND SUITESPARSE_LIBRARIES spqr)
+            list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libspqr.so)
 	  ENDIF (SUITESPARSE_SPQR_LIBRARY)
        endif()
        
