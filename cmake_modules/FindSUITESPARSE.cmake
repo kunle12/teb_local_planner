@@ -97,7 +97,7 @@ else( WIN32 )
                      NAMES metis
                      PATHS ${SUITESPARSE_LIBRARY_DIR} )
        IF (SUITESPARSE_METIS_LIBRARY)			
-	  list ( APPEND SUITESPARSE_LIBRARIES metis)
+	  list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_LIBRARY_DIR}/libmetis.so)
        ENDIF(SUITESPARSE_METIS_LIBRARY)
 
        if(EXISTS  "${CHOLMOD_INCLUDE_DIR}/SuiteSparseQR.hpp")
