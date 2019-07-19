@@ -43,7 +43,7 @@ elseif (EXISTS "FindEigen.cmake")
   e.g. by adding it to ${PROJECT_SOURCE_DIR}/cmake_modules.")
 endif (EXISTS "FindEigen3.cmake")
 
-set(EXTERNAL_INCLUDE_DIRS ${Eigen_INCLUDE_DIRS} ${SUITESPARSE_INCLUDE_DIRS} ${G2O_INCLUDE_DIR})
+set(EXTERNAL_INCLUDE_DIRS ${Eigen_INCLUDE_DIRS} ${G2O_INCLUDE_DIR} ${SUITESPARSE_INCLUDE_DIRS})
 set(EXTERNAL_LIBS ${SUITESPARSE_LIBRARIES} ${G2O_LIBRARIES})
 
 ## Uncomment this if the package has a setup.py. This macro ensures

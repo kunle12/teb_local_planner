@@ -8,8 +8,11 @@
 #
 # Niko Suenderhauf <niko@etit.tu-chemnitz.de>
 # Adapted by Felix Endres <endres@informatik.uni-freiburg.de>
+#Pre-requisites: Look for csparse
 
 IF(UNIX)
+  #include(FindPackageHandleStandardArgs)
+  #find_package_handle_standard_args(CSPARSE DEFAULT_MSG CSPARSE_INCLUDE_DIR CSPARSE_LIBRARY)
 
   #IF(G2O_INCLUDE_DIR AND G2O_LIBRARIES)
     # in cache already
@@ -70,6 +73,21 @@ IF(UNIX)
                     )
 
   IF(G2O_LIBRARIES AND G2O_INCLUDE_DIR)
+    FIND_PATH(CSPARSE_INCLUDE_DIR NAMES cs.h PATH_SUFFIXES EXTERNAL/csparse
+      PATHS ${G2O_INCLUDE_DIR}
+      NO_DEFAULT_PATH) #force to use cs.h used in g2o
+    FIND_LIBRARY(CSPARSE_LIBRARY NAMES cxsparse
+      PATHS ${CMAKE_PREFIX_PATH})
+
+    MESSAGE(STATUS "Found cs.h in ${CSPARSE_INCLUDE_DIR}")
+
+    SET(G2O_INCLUDE_DIR 
+      ${G2O_INCLUDE_DIR}
+      ${CSPARSE_INCLUDE_DIR})
+    SET(G2O_LIBRARIES
+      ${G2O_LIBRARIES} 
+      ${CSPARSE_LIBRARY})
+
     SET(G2O_FOUND "YES")
     IF(NOT G2O_FIND_QUIETLY)
       MESSAGE(STATUS "Found libg2o: ${G2O_LIBRARIES}")
